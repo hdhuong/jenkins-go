@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     def tag = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
-                    sh "docker build -t $IMAGE_NAME:$tag ."
+                    sh "export PATH=$PATH:/usr/local/bin && docker build -t $IMAGE_NAME:$tag ."
                     env.IMAGE_TAG = tag
                 }
             }
