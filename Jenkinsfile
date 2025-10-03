@@ -35,8 +35,8 @@ pipeline {
         stage('Push to Registry') {
             steps {
                 withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "echo $PASS | docker login -u $USER --password-stdin $REGISTRY"
-                    sh "docker push $IMAGE_NAME:${IMAGE_TAG}"
+                    sh "echo $PASS | export PATH=$PATH:/usr/local/bin && docker login -u $USER --password-stdin $REGISTRY"
+                    sh "export PATH=$PATH:/usr/local/bin && docker push $IMAGE_NAME:${IMAGE_TAG}"
                 }
             }
         }
