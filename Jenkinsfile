@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     def tag = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
-                    sh "docker build -t $IMAGE_NAME:$tag ."
+                    sh "/Applications/OrbStack.app/Contents/MacOS/bin/docker build -t $IMAGE_NAME:$tag ."
                     env.IMAGE_TAG = tag
                 }
             }
@@ -27,7 +27,7 @@ pipeline {
         stage('Push to Registry') {
             steps {
                 withDockerRegistry([credentialsId: REGISTRY_CREDENTIALS, url: "https://$REGISTRY"]) {
-                    sh "docker push $IMAGE_NAME:${IMAGE_TAG}"
+                    sh "/Applications/OrbStack.app/Contents/MacOS/bin/docker push $IMAGE_NAME:${IMAGE_TAG}"
                 }
             }
         }
